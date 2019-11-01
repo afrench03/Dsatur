@@ -3,33 +3,32 @@
  * 
  * This file is part of the TCSS 543 Brelaz's Dsatur project.
  */
-package TCSS543;
+package Node;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Rectangle;
-import java.util.List;
 
 /**
- *
- * @author Anne French and Ted Callow
+ * Setters and getters for location and drawing information for each node.
+ * @author Anne French
  */
 public class Node {
+    
+    private static final int RADIUS = 10;
     private Point p;
-    private int r;
     private Color color;
     private Rectangle b = new Rectangle();
     
-    public Node(Point p, int r, Color color) {
+    public Node(Point p, Color color) {
         this.p = p;
-        this.r = r;
         this.color = color;
         setBoundary(b);
     }
     
     private void setBoundary(Rectangle b) {
-        b.setBounds(p.x - r, p.y - r, 2 * r, 2 * r);
+        b.setBounds(p.x - RADIUS, p.y - RADIUS, 2 * RADIUS, 2 * RADIUS);
     }
     
     public void draw(Graphics g) {
@@ -41,7 +40,27 @@ public class Node {
         return p;
     }
     
+    public Color getColor() {
+        return color;
+    }
+    
     public void updateColor(Color color) {
         this.color = color;
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Node)) {
+            return false;
+        }
+
+        Node other = (Node) obj;
+
+        return p.getLocation().x == other.getLocation().x && p.getLocation().y == other.getLocation().y;
     }
 }
